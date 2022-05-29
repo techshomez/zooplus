@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Skeleton from 'react-loading-skeleton';
+import { NavLink } from "react-router-dom";
 import "./product.css";
 
 const Products = () => {
@@ -25,35 +27,55 @@ const Products = () => {
   }, []);
 
   const Loading = () => {
-    return <>Loading....</>;
+    return(
+       <>
+          <div className="col-md-3">
+              <Skeleton height={350}/>
+          </div>
+          <div className="col-md-3">
+              <Skeleton height={350}/>
+          </div>
+          <div className="col-md-3">
+              <Skeleton height={350}/>
+          </div>
+          <div className="col-md-3">
+              <Skeleton height={350}/>
+          </div>
+       </>
+    );
   };
+
+  const filterPro = (cat) => {
+      const updatedList = data.filter((x)=>x.category === cat);
+      setFilter(updatedList);
+  }
 
   const ShowProducts = () => {
     return (
       <>
         <div className="buttons d-flex justify-content-center mb-5 pb-5">
-          <button className="btn btn-outline-dark me-2">All</button>
-          <button className="btn btn-outline-dark me-2">Men's Clothing</button>
-          <button className="btn btn-outline-dark me-2">
+          <button className="btn btn-outline-dark me-2" onClick={() =>setFilter(data)}>All</button>
+          <button className="btn btn-outline-dark me-2" onClick={() =>filterPro("men's clothing")}>Men's Clothing</button>
+          <button className="btn btn-outline-dark me-2" onClick={() =>filterPro("women's clothing")}>
             Women's Clothing
           </button>
-          <button className="btn btn-outline-dark me-2">Jewelry</button>
-          <button className="btn btn-outline-dark me-2">Electronics</button>
+          <button className="btn btn-outline-dark me-2" onClick={() =>filterPro("jewelery")}>Jewelry</button>
+          <button className="btn btn-outline-dark me-2" onClick={() =>filterPro("electronics")}>Electronics</button>
         </div>
         {filter.map((product) => {
           return (
             <>
-              <div className="col-md-3">
+              <div className="col-md-3 mb-4">
                 <div class="card h-100 text-center p-4" key={product.id}>
-                  <img src={product.image} class="card-img-top" alt={product.title} />
+                  <img src={product.image} class="card-img-top" height="250px" alt={product.title} />
                   <div class="card-body">
-                    <h5 class="card-title">{product.title}</h5>
-                    <p class="card-text">
+                    <h5 class="card-title mb-0">{product.title.substring(0,12)}...</h5>
+                    <p class="card-text lead fw-bold">
                       ${product.price}
                     </p>
-                    <a href="#" class="btn btn-primary">
-                      Go somewhere
-                    </a>
+                    <NavLink to={`/products/${product.id}`} class="btn btn-outline-dark">
+                      Buy Now
+                    </NavLink>
                   </div>
                 </div>
               </div>
