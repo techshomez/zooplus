@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import { NavLink } from "react-router-dom";
 import "./product.css";
 
@@ -69,13 +70,10 @@ const Products = () => {
                 <div class="card h-100 text-center p-4" key={product.id}>
                   <img src={product.image} class="card-img-top" height="250px" alt={product.title} />
                   <div class="card-body">
-                    <h5 class="card-title mb-0">{product.title.substring(0,12)}...</h5>
+                  <NavLink to={`/products/${product.id}`}><h5 class="card-title mb-0 text">{product.title}</h5></NavLink>
                     <p class="card-text lead fw-bold">
                       ${product.price}
                     </p>
-                    <NavLink to={`/products/${product.id}`} class="btn btn-outline-dark">
-                      Buy Now
-                    </NavLink>
                   </div>
                 </div>
               </div>
