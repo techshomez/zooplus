@@ -30,8 +30,21 @@ const Cart = () => {
             </div>
         );
     }
+
+    const emptyCart = () => {
+        return(
+            <div className="px-4 my-5 bg-light rounded-3 py-5">
+                <div className="container py-4">
+                    <div className="row">
+                        <h3>Your Cart is empty</h3>
+                    </div>
+                </div>
+            </div>
+        );
+    }
   return (
     <>
+       {state.length === 0 && emptyCart()}
        {state.length !== 0 && state.map(cartItems)}
     </>
   );
