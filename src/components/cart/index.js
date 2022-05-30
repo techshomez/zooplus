@@ -5,18 +5,25 @@ import { deleteCart } from '../../redux/action/action';
 
 const Cart = () => {
 
-    const state = useSelector((state)=> state.addItem);
+    const state = useSelector((state)=> state.handleCart);
     const dispatch = useDispatch();
 
-    const cartItems = (cartItems) => {
+    const handleClose = (item) => {
+        dispatch(deleteCart(item));
+    }
+
+    const cartItems = (cartItem) => {
         return(
-            <div className="px-4 my-5 bg-light rounded-3">
+            <div className="px-4 my-5 bg-light rounded-3" key={cartItem.id}>
                 <div className="container py-4">
-                    <button className="btn"></button>
-                    <div className="row">
+                    <button onClick={()=>handleClose(cartItem)} className="btn-close float-end" aria-label="close"></button>
+                    <div className="row justify-content-center">
                         <div className="col-md-4">
-                            <h3></h3>
-                            <p></p>
+                            <img src={cartItem.image} alt={cartItem.title} height="200px" width="180px"/>
+                        </div>
+                        <div className="col-md-4">
+                            <h3>{cartItem.title}</h3>
+                            <p className='lead fw-bold'>${cartItem.price}</p>
                         </div>
                     </div>
                 </div>
